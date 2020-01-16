@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import { StatusBar } from 'react-native';
 
-//import api from '../../services/api';
+import api from '../../services/api';
 import { StackActions, NavigationActions } from 'react-navigation';
 
 import {
@@ -55,25 +55,28 @@ export default class SignUp extends Component {
     this.props.navigation.goBack();
   };
 
- /* handleSignUpPress = async () => {
+  handleSignUpPress = async () => {
     if (this.state.email.length === 0 || this.state.password.length === 0) {
       this.setState({ error: 'Preencha todos os campos para continuar!' }, () => false);
     } else {
       try {
+        console.log(api)
         await api.post('/register', {
           username: this.state.username,
           email: this.state.email,
           password: this.state.password,
         });
+        console.log("After")
 
         this.setState({ success: 'Conta criada com sucesso! Redirecionando para o login', error: '' });
 
         setTimeout(this.goToLogin, 2500);
       } catch (_err) {
+        console.log(_err)
         this.setState({ error: 'Houve um problema com o cadastro, verifique os dados preenchidos!' });
       }
     }
-  };*/
+  };
 
   goToLogin = () => {
     const resetAction = StackActions.reset({

@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Text, View, TouchableHighlight, ScrollView } from 'react-native'
+import { Text, View, TouchableHighlight, ScrollView, Image } from 'react-native'
 
 import PropTypes from 'prop-types';
 
@@ -13,10 +13,29 @@ import {
     Footer,
     Circle
   } from './styles';
+import api from '../../services/api';
   
 //import api from '../../services/api';
 
 export default class Main extends Component {
+
+  constructor() {
+    super();
+    this.state = {
+      courts: [],
+    }
+  }
+
+  async componentDidMount() {
+    try {
+      const response = await api.get('/institution', {})
+      console.log(response.data)
+      this.setState({ courts: response.data })
+      
+    } catch(err) {
+      return err
+    }
+  }
 
   static navigationOptions = {
     header: null,
@@ -50,8 +69,26 @@ export default class Main extends Component {
             Body
           </Text>
         </Container>
+        
         <ScrollView>
           {/* items.map() */}
+          {this.state.courts.map((item, i) => {
+            console.log(item.images[0].path);
+
+            <Image
+ style={{
+           flex: 1,
+           height: 100,
+           width: 100,
+           resizeMode: "cover",
+           borderRadius: 20
+         }}
+              source={{ uri: `http://192.168.15.30:3333/images/${item.images[0].path}` }}
+            />
+            //console.log(item.images[0].path)
+            })
+          }
+
         </ScrollView>
         <Footer>
           <TouchableHighlight onPress={this.handleProfilePress}>

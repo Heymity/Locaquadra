@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { StatusBar, AsyncStorage } from 'react-native';
 import { StackActions, NavigationActions } from 'react-navigation';
 
-//import api from '../../services/api';
+import api from '../../services/api';
 
 import {
   Container,
@@ -30,7 +30,7 @@ export default class SignIn extends Component {
   };
 
   state = {
-    email: 'gabriel.prscavone@gmail.com.br',
+    email: 'gabriel.prscavone@gmail.com',
     password: '123456',
     error: '',
   };
@@ -44,10 +44,10 @@ export default class SignIn extends Component {
   };
 
   handleCreateAccountPress = () => {
-    this.props.navigation.navigate('Main');
+    this.props.navigation.navigate('SignUp');
   };
 
- /* handleSignInPress = async () => {
+  handleSignInPress = async () => {
     if (this.state.email.length === 0 || this.state.password.length === 0) {
       this.setState({ error: 'Preencha usuário e senha para continuar!' }, () => false);
     } else {
@@ -57,7 +57,8 @@ export default class SignIn extends Component {
           password: this.state.password,
         });
 
-        await AsyncStorage.setItem('@token_key', response.data.token);
+        await AsyncStorage.setItem('@token_key', response.data[0].token);
+        await AsyncStorage.setItem('@user_email', this.state.email);
 
         const resetAction = StackActions.reset({
           index: 0,
@@ -70,7 +71,7 @@ export default class SignIn extends Component {
         this.setState({ error: 'Houve um problema com o login, verifique suas credenciais!' });
       }
     }
-  };*/
+  };
 
   render() {
     return (

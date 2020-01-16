@@ -7,13 +7,14 @@ import Main from './src/pages/main';
 import Profile from './src/pages/profile';
 import Institutions from './src/pages/institutions';
 
+
 const AppNavigator = createAppContainer(
     createStackNavigator({
         SignIn: SignIn,
         SignUp: SignUp,
         Main: Main,
         Profile: Profile,
-        Institution: Institutions
+        Institution: Institutions,
     })
   );
 

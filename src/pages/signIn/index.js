@@ -59,6 +59,8 @@ export default class SignIn extends Component {
 
         await AsyncStorage.setItem('@token_key', response.data[0].token);
         await AsyncStorage.setItem('@user_email', this.state.email);
+        //console.log(response)
+        //await AsyncStorage.setItem('@user', response);
 
         const resetAction = StackActions.reset({
           index: 0,

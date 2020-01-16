@@ -43,6 +43,8 @@ import * as ImagePicker from 'expo-image-picker';
   
 import api from '../../services/api';
 
+
+
 export default class Profile extends Component {
   
   constructor () {
@@ -57,8 +59,10 @@ export default class Profile extends Component {
         title: '',
         images: [],
       },
+      user: {}
     }
   }
+
 
   static navigationOptions = {
     header: null,
@@ -134,6 +138,12 @@ export default class Profile extends Component {
   async componentDidMount() {
     const { status } = await Permissions.askAsync(Permissions.CAMERA);
     this.setState({ hasCameraPermission: status === 'granted' });
+    const email = await AsyncStorage.getItem('@user_email')
+    const user = await api.post('/atual', {
+        email: email,
+      });
+    console.log(user)
+    this.setState({ user: user });
   }
  
  
@@ -160,12 +170,12 @@ export default class Profile extends Component {
  
       
       const imagesData = new FormData();
-      const email = await AsyncStorage.getItem('@user_email')
-      console.log(email)
-      const user = await api.post('/atual', {
-        email: email,
-      });
-      console.log(user.data[1].id)
+      //const email = await AsyncStorage.getItem('@user_email')
+      //console.log(email)
+      const user = this.state.user
+      //  email: email,
+     // });
+      console.log(this.state.user)
       
 
       images.forEach((image, index) => {

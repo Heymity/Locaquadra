@@ -35,7 +35,6 @@ const Circle = styled.View`
 `;
 
 
-
 export {
     Container,
     NavBar,

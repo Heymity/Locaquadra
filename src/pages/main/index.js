@@ -29,6 +29,7 @@ export default class Main extends Component {
     super();
     this.state = {
       courts: [],
+      crvisible: false
     }
   }
 
@@ -63,9 +64,9 @@ export default class Main extends Component {
   }
 
   handleCourtPress = () => {
-    this.props.navigation.navigate('CourtReserv');
+    this.setState({crvisible: true})
   }
-
+  
 
   RenderCourts = () => {
     
@@ -87,42 +88,48 @@ export default class Main extends Component {
   };
   
   render() {
-    return (
-      <Container>
-        <NavBar>
-          <Text>
-            LocaQuadra USP
-          </Text>
-        </NavBar>
-        {/* <Container>
-          <Text>
-            Body
-          </Text>
+      if (this.state.crvisible)
+      {
+        return null
+      } else {
+        return (
+          <Container>
+            <NavBar>
+              <Text>
+                LocaQuadra USP
+              </Text>
+            </NavBar>
+            {/* <Container>
+              <Text>
+                Body
+              </Text>
+              
           
-       
-        </Container>
-        */}
-        <ImageScrollView >
-          {this.RenderCourts()}
-          {/*<ImageView >
-            <CourtImage source={require('../../images/Logo.png')} />  
-            <Text>ola</Text>
-          </ImageView>*/}
-        </ImageScrollView>
-        
-        <Footer>
-          <TouchableHighlight onPress={this.handleProfilePress}>
-            <MaterialIcons name="person" size={32} color="#3e3e3e" />
-          </TouchableHighlight>
-          <Circle>
-            <MaterialIcons name="home" size={32} color="#bfbfbf" />
-          </Circle>
-          <TouchableHighlight onPress={this.handleInstitutionPress}>
-            <FontAwesome name="institution" size={32} color="#3e3e3e" />
-          </TouchableHighlight>
-        </Footer>
-      </Container>
-    )
+            </Container>
+            */}
+            <ImageScrollView >
+              {this.RenderCourts()}
+              {/*<ImageView >
+                <CourtImage source={require('../../images/Logo.png')} />  
+                <Text>ola</Text>
+              </ImageView>*/}
+
+            </ImageScrollView>
+            
+            <Footer>
+              <TouchableHighlight onPress={this.handleProfilePress}>
+                <MaterialIcons name="person" size={32} color="#3e3e3e" />
+              </TouchableHighlight>
+              <Circle>
+                <MaterialIcons name="home" size={32} color="#bfbfbf" />
+              </Circle>
+              <TouchableHighlight onPress={this.handleInstitutionPress}>
+                <FontAwesome name="institution" size={32} color="#3e3e3e" />
+              </TouchableHighlight>
+            </Footer>
+          </Container>
+      )
+    }
   }
 }
 

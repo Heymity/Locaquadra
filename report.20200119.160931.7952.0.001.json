@@ -1,0 +1,540 @@
+
+{
+  "header": {
+    "reportVersion": 1,
+    "event": "Allocation failed - JavaScript heap out of memory",
+    "trigger": "FatalError",
+    "filename": "report.20200119.160931.7952.0.001.json",
+    "dumpEventTime": "2020-01-19T16:09:31Z",
+    "dumpEventTimeStamp": "1579460971736",
+    "processId": 7952,
+    "cwd": "E:\\Fase9\\TCC\\locaQuadraUsp",
+    "commandLine": [
+      "C:\\Program Files\\nodejs\\node.exe",
+      "C:\\Users\\Gabriel\\AppData\\Roaming\\npm\\\\node_modules\\expo-cli\\bin\\expo.js",
+      "start"
+    ],
+    "nodejsVersion": "v12.8.0",
+    "wordSize": 64,
+    "arch": "x64",
+    "platform": "win32",
+    "componentVersions": {
+      "node": "12.8.0",
+      "v8": "7.5.288.22-node.16",
+      "uv": "1.30.1",
+      "zlib": "1.2.11",
+      "brotli": "1.0.7",
+      "ares": "1.15.0",
+      "modules": "72",
+      "nghttp2": "1.39.1",
+      "napi": "4",
+      "llhttp": "1.1.4",
+      "http_parser": "2.8.0",
+      "openssl": "1.1.1c",
+      "cldr": "35.1",
+      "icu": "64.2",
+      "tz": "2019a",
+      "unicode": "12.1"
+    },
+    "release": {
+      "name": "node",
+      "headersUrl": "https://nodejs.org/download/release/v12.8.0/node-v12.8.0-headers.tar.gz",
+      "sourceUrl": "https://nodejs.org/download/release/v12.8.0/node-v12.8.0.tar.gz",
+      "libUrl": "https://nodejs.org/download/release/v12.8.0/win-x64/node.lib"
+    },
+    "osName": "Windows_NT",
+    "osRelease": "10.0.17763",
+    "osVersion": "Windows 10 Pro",
+    "osMachine": "x86_64",
+    "cpus": [
+      {
+        "model": "Intel(R) Core(TM) i7-4790 CPU @ 3.60GHz",
+        "speed": 3600,
+        "user": 2388234,
+        "nice": 0,
+        "sys": 3733281,
+        "idle": 27409281,
+        "irq": 386734
+      },
+      {
+        "model": "Intel(R) Core(TM) i7-4790 CPU @ 3.60GHz",
+        "speed": 3600,
+        "user": 1924500,
+        "nice": 0,
+        "sys": 2498437,
+        "idle": 29107687,
+        "irq": 29984
+      },
+      {
+        "model": "Intel(R) Core(TM) i7-4790 CPU @ 3.60GHz",
+        "speed": 3600,
+        "user": 2521046,
+        "nice": 0,
+        "sys": 3628265,
+        "idle": 27381312,
+        "irq": 28406
+      },
+      {
+        "model": "Intel(R) Core(TM) i7-4790 CPU @ 3.60GHz",
+        "speed": 3600,
+        "user": 2058281,
+        "nice": 0,
+        "sys": 1579203,
+        "idle": 29893140,
+        "irq": 15125
+      },
+      {
+        "model": "Intel(R) Core(TM) i7-4790 CPU @ 3.60GHz",
+        "speed": 3600,
+        "user": 3267468,
+        "nice": 0,
+        "sys": 2595609,
+        "idle": 27667546,
+        "irq": 33265
+      },
+      {
+        "model": "Intel(R) Core(TM) i7-4790 CPU @ 3.60GHz",
+        "speed": 3600,
+        "user": 1889140,
+        "nice": 0,
+        "sys": 1367765,
+        "idle": 30273718,
+        "irq": 15859
+      },
+      {
+        "model": "Intel(R) Core(TM) i7-4790 CPU @ 3.60GHz",
+        "speed": 3600,
+        "user": 2806656,
+        "nice": 0,
+        "sys": 3355296,
+        "idle": 27368671,
+        "irq": 29781
+      },
+      {
+        "model": "Intel(R) Core(TM) i7-4790 CPU @ 3.60GHz",
+        "speed": 3600,
+        "user": 1751718,
+        "nice": 0,
+        "sys": 1563625,
+        "idle": 30215281,
+        "irq": 14218
+      }
+    ],
+    "networkInterfaces": [
+      {
+        "name": "Radmin VPN",
+        "internal": false,
+        "mac": "02:50:35:69:45:c8",
+        "address": "26.131.91.153",
+        "netmask": "255.0.0.0",
+        "family": "IPv4"
+      },
+      {
+        "name": "GabiNet",
+        "internal": false,
+        "mac": "4c:cc:6a:b1:a3:68",
+        "address": "192.168.15.30",
+        "netmask": "255.255.255.0",
+        "family": "IPv4"
+      },
+      {
+        "name": "Loopback Pseudo-Interface 1",
+        "internal": true,
+        "mac": "00:00:00:00:00:00",
+        "address": "::1",
+        "netmask": "ffff:ffff:ffff:ffff:ffff:ffff:ffff:ffff",
+        "family": "IPv6",
+        "scopeid": 0
+      },
+      {
+        "name": "Loopback Pseudo-Interface 1",
+        "internal": true,
+        "mac": "00:00:00:00:00:00",
+        "address": "127.0.0.1",
+        "netmask": "255.0.0.0",
+        "family": "IPv4"
+      },
+      {
+        "name": "Teredo Tunneling Pseudo-Interface",
+        "internal": false,
+        "mac": "00:00:00:00:00:00",
+        "address": "2001:0:2877:7aa:207a:3d95:44f5:cfda",
+        "netmask": "ffff:ffff:ffff:ffff::",
+        "family": "IPv6",
+        "scopeid": 0
+      },
+      {
+        "name": "Teredo Tunneling Pseudo-Interface",
+        "internal": false,
+        "mac": "00:00:00:00:00:00",
+        "address": "fe80::207a:3d95:44f5:cfda",
+        "netmask": "ffff:ffff:ffff:ffff::",
+        "family": "IPv6",
+        "scopeid": 16
+      }
+    ],
+    "host": "PASQUA"
+  },
+  "javascriptStack": {
+    "message": "No stack.",
+    "stack": [
+      "Unavailable."
+    ]
+  },
+  "nativeStack": [
+    {
+      "pc": "0x00007ff73c156d99",
+      "symbol": "std::basic_ostream<char,std::char_traits<char> >::operator<<+10873"
+    },
+    {
+      "pc": "0x00007ff73c15b38c",
+      "symbol": "std::basic_ostream<char,std::char_traits<char> >::operator<<+28780"
+    },
+    {
+      "pc": "0x00007ff73c15a338",
+      "symbol": "std::basic_ostream<char,std::char_traits<char> >::operator<<+24600"
+    },
+    {
+      "pc": "0x00007ff73c244f3b",
+      "symbol": "v8::base::CPU::has_sse+37691"
+    },
+    {
+      "pc": "0x00007ff73ca2bc1e",
+      "symbol": "v8::Isolate::ReportExternalAllocationLimitReached+94"
+    },
+    {
+      "pc": "0x00007ff73ca13f6a",
+      "symbol": "v8::SharedArrayBuffer::Externalize+842"
+    },
+    {
+      "pc": "0x00007ff73c8a567c",
+      "symbol": "v8::internal::Heap::EphemeronKeyWriteBarrierFromCode+1436"
+    },
+    {
+      "pc": "0x00007ff73c8ad59f",
+      "symbol": "v8::internal::Heap::OldGenerationSizeOfObjects+4879"
+    },
+    {
+      "pc": "0x00007ff73c8a3843",
+      "symbol": "v8::internal::Heap::CollectGarbage+1235"
+    },
+    {
+      "pc": "0x00007ff73c8a20d4",
+      "symbol": "v8::internal::Heap::AddRetainedMap+2292"
+    },
+    {
+      "pc": "0x00007ff73c8c0bb5",
+      "symbol": "v8::internal::Factory::NewFillerObject+53"
+    },
+    {
+      "pc": "0x00007ff73c676f2d",
+      "symbol": "v8::internal::interpreter::JumpTableTargetOffsets::iterator::operator=+3757"
+    },
+    {
+      "pc": "0x00007ff73ce4b06d",
+      "symbol": "v8::internal::SetupIsolateDelegate::SetupHeap+614605"
+    },
+    {
+      "pc": "0x000002a75bff425a",
+      "symbol": ""
+    }
+  ],
+  "javascriptHeap": {
+    "totalMemory": 2165792768,
+    "totalCommittedMemory": 2165792768,
+    "usedMemory": 2131980968,
+    "availableMemory": 48709032,
+    "memoryLimit": 2197815296,
+    "heapSpaces": {
+      "read_only_space": {
+        "memorySize": 262144,
+        "committedMemory": 262144,
+        "capacity": 261832,
+        "used": 31960,
+        "available": 229872
+      },
+      "new_space": {
+        "memorySize": 16777216,
+        "committedMemory": 16777216,
+        "capacity": 8378624,
+        "used": 351824,
+        "available": 8026800
+      },
+      "old_space": {
+        "memorySize": 2137403392,
+        "committedMemory": 2137403392,
+        "capacity": 2123694784,
+        "used": 2123643576,
+        "available": 51208
+      },
+      "code_space": {
+        "memorySize": 1474560,
+        "committedMemory": 1474560,
+        "capacity": 1094432,
+        "used": 1094432,
+        "available": 0
+      },
+      "map_space": {
+        "memorySize": 5771264,
+        "committedMemory": 5771264,
+        "capacity": 2823760,
+        "used": 2823760,
+        "available": 0
+      },
+      "large_object_space": {
+        "memorySize": 4055040,
+        "committedMemory": 4055040,
+        "capacity": 4031960,
+        "used": 4031960,
+        "available": 0
+      },
+      "code_large_object_space": {
+        "memorySize": 49152,
+        "committedMemory": 49152,
+        "capacity": 3456,
+        "used": 3456,
+        "available": 0
+      },
+      "new_large_object_space": {
+        "memorySize": 0,
+        "committedMemory": 0,
+        "capacity": 8378624,
+        "used": 0,
+        "available": 8378624
+      }
+    }
+  },
+  "resourceUsage": {
+    "userCpuSeconds": 276.281,
+    "kernelCpuSeconds": 28.078,
+    "cpuConsumptionPercent": 2.84341,
+    "maxRss": 2252431360,
+    "pageFaults": {
+      "IORequired": 2450008,
+      "IONotRequired": 0
+    },
+    "fsActivity": {
+      "reads": 35495,
+      "writes": 104
+    }
+  },
+  "libuv": [
+  ],
+  "environmentVariables": {
+    "=C:": "C:\\",
+    "=E:": "E:\\Fase9\\TCC\\locaQuadraUsp",
+    "add_path": "E:\\cmder",
+    "aliases": "E:\\cmder\\config\\user_aliases.cmd",
+    "ALLUSERSPROFILE": "C:\\ProgramData",
+    "ANSICON": "73x1000 (73x30)",
+    "ANSICON_DEF": "7",
+    "APPDATA": "C:\\Users\\Gabriel\\AppData\\Roaming",
+    "architecture": "64",
+    "architecture_bits": "64",
+    "ccall": "call E:\\cmder\\vendor\\bin\\cexec.cmd",
+    "cexec": "E:\\cmder\\vendor\\bin\\cexec.cmd",
+    "CMDER_ALIASES": "1",
+    "CMDER_CLINK": "1",
+    "CMDER_CONFIGURED": "1",
+    "CMDER_INIT_END": "21:12:27,20",
+    "CMDER_INIT_START": "21:12:20,88",
+    "CMDER_ROOT": "E:\\cmder",
+    "CMDER_SHELL": "cmd",
+    "CMDER_USER_FLAGS": " ",
+    "CommonProgramFiles": "C:\\Program Files\\Common Files",
+    "CommonProgramFiles(x86)": "C:\\Program Files (x86)\\Common Files",
+    "CommonProgramW6432": "C:\\Program Files\\Common Files",
+    "COMPUTERNAME": "PASQUA",
+    "ComSpec": "C:\\WINDOWS\\system32\\cmd.exe",
+    "ConEmuANSI": "ON",
+    "ConEmuAnsiLog": "",
+    "ConEmuArgs": "/Icon \"E:\\cmder\\icons\\cmder.ico\" /Title Cmder",
+    "ConEmuArgs2": "",
+    "ConEmuBackHWND": "0x00010988",
+    "ConEmuBaseDir": "E:\\cmder\\vendor\\conemu-maximus5\\ConEmu",
+    "ConEmuBaseDirShort": "E:\\cmder\\vendor\\conemu-maximus5\\ConEmu",
+    "ConEmuBuild": "191012",
+    "ConEmuCfgDir": "E:\\cmder\\vendor\\conemu-maximus5",
+    "ConEmuConfig": "",
+    "ConEmuDir": "E:\\cmder\\vendor\\conemu-maximus5",
+    "ConEmuDrawHWND": "0x0001098A",
+    "ConEmuDrive": "E:",
+    "ConEmuHooks": "Enabled",
+    "ConEmuHWND": "0x003B02C2",
+    "ConEmuPalette": "Monokai",
+    "ConEmuPID": "8572",
+    "ConEmuServerPID": "11148",
+    "ConEmuTask": "{cmd::Cmder}",
+    "ConEmuWorkDir": "E:\\cmder",
+    "ConEmuWorkDrive": "E:",
+    "debug_output": "0",
+    "depth": "1",
+    "DriverData": "C:\\Windows\\System32\\Drivers\\DriverData",
+    "fast_init": "0",
+    "feFlagName": " ",
+    "find_query": "E:\\\\cmder",
+    "found": "0",
+    "git_executable": "C:\\Program Files\\Git\\cmd\\git.exe",
+    "GIT_INSTALL_ROOT": "E:\\cmder\\vendor\\git-for-windows",
+    "git_locale": "\"C:\\Program Files\\Git\\usr\\bin\\locale.exe\"",
+    "GIT_VERSION_USER": "2.20.1.windows.1",
+    "GIT_VERSION_VENDORED": "2.23.0.windows.1",
+    "GTK_BASEPATH": "C:\\Program Files (x86)\\GtkSharp\\2.12\\",
+    "HOME": "C:\\Users\\Gabriel",
+    "HOMEDRIVE": "C:",
+    "HOMEPATH": "\\Users\\Gabriel",
+    "INIT_CWD": "E:\\Fase9\\TCC\\locaQuadraUsp",
+    "INTEL_DEV_REDIST": "C:\\Program Files (x86)\\Common Files\\Intel\\Shared Libraries\\",
+    "LANG": "pt_BR.UTF-8",
+    "lib_base": "call \"E:\\cmder\\vendor\\lib\\lib_base.cmd\"",
+    "lib_console": "call \"E:\\cmder\\vendor\\lib\\lib_console.cmd\"",
+    "lib_git": "call \"E:\\cmder\\vendor\\lib\\lib_git.cmd\"",
+    "lib_path": "call \"E:\\cmder\\vendor\\lib\\lib_path.cmd\"",
+    "lib_profile": "call \"E:\\cmder\\vendor\\lib\\lib_profile.cmd\"",
+    "LOCALAPPDATA": "C:\\Users\\Gabriel\\AppData\\Local",
+    "LOGONSERVER": "\\\\PASQUA",
+    "max_depth": "1",
+    "MIC_LD_LIBRARY_PATH": "C:\\Program Files (x86)\\Common Files\\Intel\\Shared Libraries\\compiler\\lib\\intel64_win_mic",
+    "nix_tools": "1",
+    "NODE": "C:\\Program Files\\nodejs\\node.exe",
+    "npm_config_argv": "{\"remain\":[],\"cooked\":[\"run\",\"start\"],\"original\":[\"start\"]}",
+    "npm_config_bin_links": "true",
+    "npm_config_ignore_optional": "",
+    "npm_config_ignore_scripts": "",
+    "npm_config_init_license": "MIT",
+    "npm_config_init_version": "1.0.0",
+    "npm_config_registry": "https://registry.yarnpkg.com",
+    "npm_config_save_prefix": "^",
+    "npm_config_strict_ssl": "true",
+    "npm_config_user_agent": "yarn/1.17.3 npm/? node/v12.8.0 win32 x64",
+    "npm_config_version_commit_hooks": "true",
+    "npm_config_version_git_message": "v%s",
+    "npm_config_version_git_sign": "",
+    "npm_config_version_git_tag": "true",
+    "npm_config_version_tag_prefix": "v",
+    "npm_execpath": "C:\\Program Files (x86)\\Yarn\\bin\\yarn.js",
+    "npm_lifecycle_event": "start",
+    "npm_lifecycle_script": "expo start",
+    "npm_node_execpath": "C:\\Program Files\\nodejs\\node.exe",
+    "npm_package_dependencies_axios": "^0.19.1",
+    "npm_package_dependencies_expo": "^35.0.0",
+    "npm_package_dependencies_expo_camera": "~7.0.0",
+    "npm_package_dependencies_expo_image_picker": "~7.0.0",
+    "npm_package_dependencies_native_base": "^2.13.8",
+    "npm_package_dependencies_prop_types": "^15.7.2",
+    "npm_package_dependencies_react": "16.8.3",
+    "npm_package_dependencies_react_dom": "16.8.3",
+    "npm_package_dependencies_react_native": "https://github.com/expo/react-native/archive/sdk-35.0.0.tar.gz",
+    "npm_package_dependencies_react_native_datepicker": "^1.7.2",
+    "npm_package_dependencies_react_native_gesture_handler": "~1.3.0",
+    "npm_package_dependencies_react_native_web": "^0.11.7",
+    "npm_package_dependencies_react_navigation": "^4.0.10",
+    "npm_package_dependencies_react_navigation_stack": "^1.10.3",
+    "npm_package_dependencies_styled_components": "^4.4.1",
+    "npm_package_devDependencies_babel_preset_expo": "^7.1.0",
+    "npm_package_main": "node_modules/expo/AppEntry.js",
+    "npm_package_name": "",
+    "npm_package_private": "true",
+    "npm_package_scripts_android": "expo start --android",
+    "npm_package_scripts_eject": "expo eject",
+    "npm_package_scripts_ios": "expo start --ios",
+    "npm_package_scripts_start": "expo start",
+    "npm_package_scripts_web": "expo start --web",
+    "npm_package_version": "",
+    "NUMBER_OF_PROCESSORS": "8",
+    "OneDrive": "C:\\Users\\Gabriel\\OneDrive",
+    "OneDriveConsumer": "C:\\Users\\Gabriel\\OneDrive",
+    "OS": "Windows_NT",
+    "Path": "C:\\Users\\Gabriel\\AppData\\Roaming\\npm\\node_modules\\expo-cli\\node_modules\\@expo\\xdl\\binaries\\windows\\adb;C:\\Users\\Gabriel\\AppData\\Local\\Temp\\yarn--1579450266506-0.9818857606901514;E:\\Fase9\\TCC\\locaQuadraUsp\\node_modules\\.bin;C:\\Users\\Gabriel\\AppData\\Local\\Yarn\\Data\\link\\node_modules\\.bin;C:\\Program Files\\libexec\\lib\\node_modules\\npm\\bin\\node-gyp-bin;C:\\Program Files\\lib\\node_modules\\npm\\bin\\node-gyp-bin;C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\node-gyp-bin;E:\\cmder\\vendor\\conemu-maximus5\\ConEmu\\Scripts;E:\\cmder\\vendor\\conemu-maximus5;E:\\cmder\\vendor\\conemu-maximus5\\ConEmu;C:\\Program Files (x86)\\Common Files\\Intel\\Shared Libraries\\redist\\intel64_win\\compiler;C:\\ProgramData\\Oracle\\Java\\javapath;C:\\Program Files (x86)\\Common Files\\Intel\\Shared Libraries\\redist\\intel64\\compiler;C:\\WINDOWS\\system32;C:\\WINDOWS;C:\\WINDOWS\\System32\\Wbem;C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\;C:\\Program Files (x86)\\QuickTime\\QTSystem\\;C:\\Program Files (x86)\\GtkSharp\\2.12\\bin;C:\\WINDOWS\\System32\\OpenSSH\\;C:\\Program Files (x86)\\Brackets\\command;C:\\Program Files (x86)\\Common Files\\Propellerhead Software\\ReWire\\;C:\\Program Files\\Common Files\\Propellerhead Software\\ReWire\\;C:\\Program Files\\NVIDIA Corporation\\NVIDIA NvDLISR;C:\\Program Files\\dotnet\\;C:\\Program Files\\Git\\cmd;C:\\Program Files (x86)\\NVIDIA Corporation\\PhysX\\Common;C:\\WINDOWS\\system32;C:\\WINDOWS;C:\\WINDOWS\\System32\\Wbem;C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\;C:\\WINDOWS\\System32\\OpenSSH\\;C:\\HashiCorp\\Vagrant\\bin;C:\\Program Files (x86)\\Yarn\\bin\\;C:\\Program Files\\nodejs\\;C:\\Ruby24\\bin;C:\\Users\\Gabriel\\AppData\\Local\\Programs\\Python\\Python36-32\\Scripts\\;C:\\Users\\Gabriel\\AppData\\Local\\Programs\\Python\\Python36-32\\;C:\\Users\\Gabriel\\AppData\\Local\\Microsoft\\WindowsApps;C:\\Users\\Gabriel\\AppData\\Local\\atom\\bin;C:\\Users\\Gabriel\\AppData\\Local\\Programs\\Microsoft VS Code\\bin;C:\\Users\\Gabriel\\.dotnet\\tools;C:\\Users\\Gabriel\\AppData\\Local\\Microsoft\\WindowsApps;C:\\Users\\Gabriel\\AppData\\Local\\Yarn\\bin;C:\\Users\\Gabriel\\AppData\\Local\\hyper\\app-3.0.2\\resources\\bin;C:\\Users\\Gabriel\\AppData\\Roaming\\npm;C:\\Program Files\\Git\\cmd;C:\\Program Files\\Git\\mingw64\\bin;C:\\Program Files\\Git\\usr\\bin;E:\\cmder\\vendor\\bin;E:\\cmder\\bin;E:\\cmder;E:\\cmder\\vendor\\git-for-windows\\cmd;E:\\cmder\\vendor\\git-for-windows\\mingw64\\bin;E:\\cmder\\vendor\\git-for-windows\\usr\\bin;E:\\cmder\\vendor\\bin;E:\\cmder",
+    "PATHEXT": ".COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JSE;.WSF;.WSH;.MSC;.RB;.RBW",
+    "path_position": "append",
+    "PLINK_PROTOCOL": "ssh",
+    "position": "append",
+    "PROCESSOR_ARCHITECTURE": "AMD64",
+    "PROCESSOR_IDENTIFIER": "Intel64 Family 6 Model 60 Stepping 3, GenuineIntel",
+    "PROCESSOR_LEVEL": "6",
+    "PROCESSOR_REVISION": "3c03",
+    "ProgramData": "C:\\ProgramData",
+    "ProgramFiles": "C:\\Program Files",
+    "ProgramFiles(x86)": "C:\\Program Files (x86)",
+    "ProgramW6432": "C:\\Program Files",
+    "PROMPT": "C\bL\bI\bN\bK\b \b$P$G",
+    "PSModulePath": "C:\\Program Files\\WindowsPowerShell\\Modules;C:\\WINDOWS\\system32\\WindowsPowerShell\\v1.0\\Modules",
+    "PUBLIC": "C:\\Users\\Public",
+    "RG_GPU_FRAMEWORK_ENGINE_RESOURCEDIR": "C:\\Program Files\\Red Giant\\RGFX",
+    "RUBYOPT": "-Eutf-8",
+    "SESSIONNAME": "Console",
+    "SVN_SSH": "C:\\\\Program Files\\\\Git\\\\bin\\\\ssh.exe",
+    "SystemDrive": "C:",
+    "SystemRoot": "C:\\WINDOWS",
+    "TEMP": "C:\\Users\\Gabriel\\AppData\\Local\\Temp",
+    "TERM": "cygwin",
+    "time_init": "0",
+    "TMP": "C:\\Users\\Gabriel\\AppData\\Local\\Temp",
+    "USERDOMAIN": "PASQUA",
+    "USERDOMAIN_ROAMINGPROFILE": "PASQUA",
+    "USERNAME": "Gabriel",
+    "USERPROFILE": "C:\\Users\\Gabriel",
+    "user_aliases": "E:\\cmder\\config\\user_aliases.cmd",
+    "USER_BUILD": "windows.1",
+    "USER_MAJOR": "2",
+    "USER_MINOR": "20",
+    "USER_PATCH": "1",
+    "VBOX_MSI_INSTALL_PATH": "C:\\Program Files\\Oracle\\VirtualBox\\",
+    "VENDORED_BUILD": "windows.1",
+    "VENDORED_MAJOR": "2",
+    "VENDORED_MINOR": "23",
+    "VENDORED_PATCH": "0",
+    "verbose_output": "0",
+    "windir": "C:\\WINDOWS",
+    "YARN_WRAP_OUTPUT": "false"
+  },
+  "sharedObjects": [
+    "C:\\Program Files\\nodejs\\node.exe",
+    "C:\\WINDOWS\\SYSTEM32\\ntdll.dll",
+    "C:\\WINDOWS\\System32\\KERNEL32.DLL",
+    "C:\\WINDOWS\\System32\\KERNELBASE.dll",
+    "C:\\WINDOWS\\System32\\WS2_32.dll",
+    "C:\\WINDOWS\\System32\\RPCRT4.dll",
+    "C:\\WINDOWS\\SYSTEM32\\dbghelp.dll",
+    "C:\\WINDOWS\\System32\\ucrtbase.dll",
+    "C:\\WINDOWS\\System32\\ADVAPI32.dll",
+    "C:\\WINDOWS\\System32\\msvcrt.dll",
+    "C:\\WINDOWS\\System32\\sechost.dll",
+    "C:\\WINDOWS\\System32\\USER32.dll",
+    "C:\\WINDOWS\\System32\\win32u.dll",
+    "C:\\WINDOWS\\System32\\GDI32.dll",
+    "C:\\WINDOWS\\System32\\gdi32full.dll",
+    "C:\\WINDOWS\\System32\\msvcp_win.dll",
+    "C:\\WINDOWS\\System32\\PSAPI.DLL",
+    "C:\\WINDOWS\\System32\\CRYPT32.dll",
+    "C:\\WINDOWS\\System32\\MSASN1.dll",
+    "C:\\WINDOWS\\SYSTEM32\\USERENV.dll",
+    "C:\\WINDOWS\\SYSTEM32\\IPHLPAPI.DLL",
+    "C:\\WINDOWS\\System32\\bcrypt.dll",
+    "C:\\WINDOWS\\System32\\profapi.dll",
+    "C:\\WINDOWS\\SYSTEM32\\WINMM.dll",
+    "C:\\WINDOWS\\SYSTEM32\\winmmbase.dll",
+    "C:\\WINDOWS\\System32\\cfgmgr32.dll",
+    "C:\\WINDOWS\\System32\\IMM32.DLL",
+    "E:\\cmder\\vendor\\conemu-maximus5\\ConEmu\\ConEmuHk64.dll",
+    "C:\\WINDOWS\\System32\\powrprof.dll",
+    "C:\\WINDOWS\\system32\\uxtheme.dll",
+    "C:\\WINDOWS\\System32\\combase.dll",
+    "C:\\WINDOWS\\System32\\bcryptPrimitives.dll",
+    "C:\\WINDOWS\\system32\\mswsock.dll",
+    "C:\\WINDOWS\\System32\\kernel.appcore.dll",
+    "C:\\WINDOWS\\system32\\napinsp.dll",
+    "C:\\WINDOWS\\system32\\pnrpnsp.dll",
+    "C:\\WINDOWS\\SYSTEM32\\DNSAPI.dll",
+    "C:\\WINDOWS\\System32\\NSI.dll",
+    "C:\\WINDOWS\\System32\\winrnr.dll",
+    "C:\\WINDOWS\\system32\\NLAapi.dll",
+    "C:\\WINDOWS\\system32\\wshbth.dll",
+    "C:\\WINDOWS\\SYSTEM32\\CRYPTBASE.DLL",
+    "C:\\WINDOWS\\SYSTEM32\\dhcpcsvc6.DLL",
+    "C:\\WINDOWS\\SYSTEM32\\dhcpcsvc.DLL",
+    "C:\\Windows\\System32\\rasadhlp.dll",
+    "C:\\WINDOWS\\System32\\fwpuclnt.dll"
+  ]
+}

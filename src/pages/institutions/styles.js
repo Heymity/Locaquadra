@@ -90,6 +90,7 @@ const DescriptionText = styled.Text`
   font-size: 13px;
   margin-top: 2px;
   padding-left: 7px;
+  width: 220px;
 `;
 
 export {

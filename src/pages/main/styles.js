@@ -78,6 +78,7 @@ const DescriptionText = styled.Text`
   font-size: 13px;
   margin-top: 2px;
   padding-left: 7px;
+  width: 220px;
 `;
 
 const GoBack = styled.TouchableOpacity`
@@ -120,7 +121,8 @@ const Row = styled.View`
 
 const Hr = styled.View`
   height: ${props => props.size};
-  width: 100%;
+  /*width: 100%;*/
+  flex: 1;
   backgroundColor: #999999
 `;
 
@@ -140,7 +142,10 @@ const TimeDisplayText = styled.Text`
 `;
 
 const HrContainer = styled.View`
-  padding: 10px
+  padding: 10px;
+  flexDirection: row;
+  justifyContent: center;
+  alignItems: center;
 `;
 
 const StatusCircle = styled.View`
@@ -155,6 +160,86 @@ const StatusCircle = styled.View`
 
 const NRow = styled.View`
   flexDirection: row;
+`;
+
+const TextoOucupado = styled.Text`
+  margin-left: 5px;
+  font-weight: 600;
+  font-size: 15px;
+`;
+
+const VisaoOcupada = styled.View`
+  margin-bottom: 2px;
+  margin-top:3px;
+`;
+
+const Locate = styled.View`
+
+`;
+
+const ErrorMessage = styled.Text`
+  textAlign: center;
+  color: #ce2029;
+  fontSize: 16px;
+  marginBottom: 15px;
+  marginHorizontal: 20px;
+`;
+
+const LocateBtn = styled.TouchableOpacity`
+  border-radius: 4px;
+  border: 1px solid #82a4cc;
+  margin-left: 5px;
+  margin-right: 5px;
+  margin-top: 10px;
+  backgroundColor: #7e85cf;
+  width: null;
+  padding: 5px;
+  justifyContent: center;
+  alignItems: center;
+`;
+
+const LocateText = styled.Text`
+  margin-left: 5px;
+  font-weight: 600;
+  font-size: 17px;
+  color: #f9f8fa
+`;
+
+
+const VisaoMuitoOucupada = styled.View`
+  height: 20%; 
+  /*backgroundColor: #0000ff;*/
+  padding-top: 10px;
+  borderRadius: 12;
+`;
+
+const ScrollViewOucupada = styled.ScrollView`
+  height: 5%;  
+  flex: 1;
+  width: 100%;
+  backgroundColor: #e6e4d9;
+  padding-left: 5px;
+  padding-right: 5px;
+  borderRadius: 12;
+`;
+
+const SuccessMessage = styled.Text`
+  textAlign: center;
+  color: #08a092;
+  fontSize: 16px;
+  marginBottom: 15px;
+  marginHorizontal: 20px;
+`;
+
+const VisaoMuitoFlexivel = styled.View`
+  flex: 1;
+`;
+
+const VisaoNemTaoOucupada = styled.View`
+  height: 40%; 
+  /*backgroundColor: #0000ff;*/
+  padding-top: 10px;
+  borderRadius: 12;
 `;
 
 export {
@@ -177,6 +262,17 @@ export {
     TimeDisplayText,
     HrContainer,
     StatusCircle,
-    NRow
+    NRow,
+    TextoOucupado,
+    VisaoOcupada,
+    Locate,
+    ErrorMessage,
+    LocateBtn,
+    ScrollViewOucupada,
+    VisaoMuitoOucupada,
+    LocateText,
+    SuccessMessage,
+    VisaoNemTaoOucupada,
+    VisaoMuitoFlexivel
   };
   

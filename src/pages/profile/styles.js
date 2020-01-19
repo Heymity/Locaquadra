@@ -2,8 +2,8 @@ import styled from 'styled-components';
 
 const Container = styled.View`
   flex: 1;
-  alignItems: center;
-  justifyContent: center;
+  /*alignItems: center;*/
+  /*justifyContent: center;*/
   backgroundColor: #FAF9F8;
   height: 100%;
 `;
@@ -35,11 +35,69 @@ const Circle = styled.View`
 `;
 
 
+const ProfileImage = styled.Image`
+  height: 150px;
+  width: 180px;
+  resizeMode: stretch;
+  borderRadius: 20px;
+  position: relative;
+  padding: 10px;
+  margin-left: 5px;
+  margin-right: 10px;
+  marginBottom: 10px;
+`;
+
+const VisaoDoPoder = styled.View`
+  backgroundColor: #f9f8fa;
+  position: absolute;
+  width: 100%;
+  padding: 15px;
+  height: 100%;
+`;
+
+const ProfileText = styled.Text`
+  fontSize: 16px;
+  fontWeight: 500;
+`;
+
+
+const Hr = styled.View`
+  height: ${props => props.size};
+  /*width: 100%;*/
+  flex: 1;
+  backgroundColor: #999999
+`;
+
+const HrContainer = styled.View`
+  padding: 10px;
+  flexDirection: row;
+  justifyContent: center;
+  alignItems: center;
+`;
+
+const ProfileInput = styled.TextInput`
+  paddingHorizontal: 20px;
+  paddingVertical: 5px;
+  borderRadius: 5px;
+  backgroundColor: #FFF;
+  alignSelf: stretch;
+  marginBottom: 5px;
+  fontSize: 15px;
+  borderWidth: 1px;
+  borderColor: #CCC;
+`;
+
 export {
     Container,
     NavBar,
     Footer,
-    Circle
+    Circle,
+    ProfileImage,
+    VisaoDoPoder,
+    Hr,
+    HrContainer,
+    ProfileText,
+    ProfileInput
   };
 
   

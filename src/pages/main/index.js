@@ -27,7 +27,18 @@ import {
     TimeDisplayText,
     HrContainer,
     StatusCircle,
-    NRow
+    NRow,
+    TextoOucupado,
+    VisaoOcupada,
+    Locate,
+    ErrorMessage,
+    LocateBtn,
+    ScrollViewOucupada,
+    VisaoMuitoOucupada,
+    LocateText,
+    SuccessMessage,
+    VisaoNemTaoOucupada,
+    VisaoMuitoFlexivel
   } from './styles';
 
 import api from '../../services/api';
@@ -46,7 +57,10 @@ export default class Main extends Component {
       court: {},
       date: "",
       timeOut: "",
-      ant: 0
+      ant: 0,
+      reservs: [],
+      errorMessage: "",
+      successMessage: ""
     }
    
   }
@@ -56,6 +70,14 @@ export default class Main extends Component {
       const response = await api.get('/court', {})
       console.log(response.data)
       this.setState({ courts: response.data })
+      
+    } catch(err) {
+      return err
+    }
+    try {
+      const response = await api.get('/reserv', {})
+      console.log(response.data)
+      this.setState({ reservs: response.data })
       
     } catch(err) {
       return err
@@ -133,13 +155,119 @@ export default class Main extends Component {
       tmp[0] == 23 ? dateOut = 59 : (
         tmp[0] = parseInt(tmp[0]) + 1,
         dateOut = parseInt(dateOut) - 60
-      ),
-      timeOut = tmp[0] + ":" + dateOut
+      )
+      //timeOut = tmp[0] + ":" + dateOut
       
-    ) : timeOut = tmp[0] + ":" + dateOut
+    ) : console.log("lenght:", dateOut.toString().length)//timeOut = tmp[0] + ":" + dateOut
+    var tmpp = dateOut.toString();
+    tmpp.length == 1 ? timeOut = tmp[0] + ":" + "0" + dateOut : timeOut = tmp[0] + ":" + dateOut
     console.log(timeOut)
     this.setState({timeOut: timeOut, ant: parseInt(value)})
   }
+
+  toDate = (dateIn) => {
+    var tmp = []
+    var tmp2 = []
+    typeof(dateIn) == "string" ? (
+      tmp = dateIn.split("-"), 
+      tmp2 = tmp[3].split(":"),
+      dateIn = new Date(tmp[0], (parseInt(tmp[1]) - 1), tmp[2], tmp2[0], tmp2[1]),
+      dateIn.toISOString()
+    ) : console.log(dateIn);
+
+    return dateIn;
+  }
+
+  fromISOtoISO = (dateIn) => {
+    var tmp = [];
+    var tmp2 = [];
+    var tmp3 = [];
+    //console.log(dateIn)
+    typeof(dateIn) == "string" ? (
+      tmp = dateIn.split("-"), 
+      //console.log(tmp),
+      tmp2 = tmp[2].split(":"),
+      tmp3 = tmp2[0].split("T"),
+      //console.log(tmp2),
+      dateIn = new Date(tmp[0], tmp[1], tmp3[0], tmp3[1], tmp2[1])
+    ) : console.log(dateIn)
+
+    return dateIn
+  }
+
+  handleDateChange = (date) => {
+    this.setState({date: date})
+    this.handleTimePress(0);
+    this.handleTimeMimPress(0);
+  }
+
+  locateCourt = async (out, courtid) => {
+    console.log("\n\nEnviando dados\n\n");
+    console.log(this.state.date, out, this.state.user[0].institution_id, courtid);
+    try {
+      const responseReserv = await api.get('/reserv', {})
+      this.setState({ reservs: responseReserv.data })
+      
+    } catch(err) {
+      return err
+    }
+    var dateIn = this.toDate(this.state.date)
+    var dateOut = this.toDate(out)
+    var canLocate = true;
+    
+    console.log(dateIn);
+    this.state.reservs.map ((item, i) => {
+      //console.log(item);
+      var itemDateIn = this.fromISOtoISO(item.timeIn)
+      var itemDateOut = this.fromISOtoISO(item.timeOut)
+
+      var x = parseInt(itemDateIn.getHours()) + (parseInt(itemDateIn.getMinutes()) / 60)
+      var y = parseInt(itemDateOut.getHours()) + (parseInt(itemDateOut.getMinutes()) / 60)
+
+      if(dateIn.getDate() == itemDateIn.getDate() && parseInt(dateIn.getMonth()) + 1 == itemDateIn.getMonth())
+      {       
+        var d = parseInt((dateOut.getTime() - dateIn.getTime())) / 3600000
+        var f = parseInt(dateOut.getHours()) + (parseInt(dateOut.getMinutes()) / 60)
+        var i = parseInt(dateIn.getHours()) + (parseInt(dateIn.getMinutes()) / 60)
+
+        var tmp = [f - (2 * d), f, i, i + (2 * d)]
+        console.log(x, y, tmp, d, f, i, canLocate)
+        if(tmp[0]<=x && x<=tmp[1] && tmp[2]<=y && y<=tmp[3])
+        {
+          console.log("\nNAO PODE\n")
+          canLocate = false;
+        }
+      }
+     
+    });
+    if(canLocate)
+    {
+      try {
+        const response = await api.post('/reserv', {
+          court_id: courtid,
+          institution_id: this.state.user[0].institution_id,
+          timeIn: dateIn,
+          timeOut: out
+        })
+        this.setState({ successMessage:"A sua reserva foi concluida!" })
+        console.log("response data:\n\n" ,response.data, "Message:\n\n", this.state.successMessage)    
+        try {
+          const responseReserv = await api.get('/reserv', {})
+          this.setState({ reservs: responseReserv.data })
+          
+        } catch(err) {
+          return err
+        }
+      } catch(err) {
+        console.log("err:\n\n",err)
+        return err
+      }
+    } else {
+      this.setState({ errorMessage:"Parece que ja existe uma reserva nessa data e horario nessa quadra" })
+    }
+   
+    //this.setState({ reservs: response.data })
+  };
 
    RenderCR = (props) => {
     var today = new Date();
@@ -180,12 +308,12 @@ export default class Main extends Component {
           {this.state.user[0].institution === true && <UserType>institution</UserType>}
         </NavBar>
         <MidPart>
-          <Text> {props.court.name} </Text>
+          {/*<Text> {props.court.name} </Text>*/}
           <ImageView>
             <CourtImage source={{ uri: `http://192.168.15.30:3333/images/${props.court.images[0].path}` }} />
             <View>  
               <NameText>{props.court.name}</NameText>
-              <DescriptionText>Lorem Ipsum dolar sit amet</DescriptionText>
+              <DescriptionText>{props.court.description}</DescriptionText>
             </View>
           </ImageView>
           {this.state.user[0].institution === true && 
@@ -213,7 +341,7 @@ export default class Main extends Component {
                     }
                     // ... You can check the source to find the other keys.
                   }}
-                  onDateChange={(date) => {this.setState({date: date})}}
+                  onDateChange={this.handleDateChange}
                 />
                 <TimeDisplay>
                   <TimeDisplayText>
@@ -221,13 +349,13 @@ export default class Main extends Component {
                   </TimeDisplayText>
                 </TimeDisplay>
               </Row>
-              <HrContainer><Hr size="2px"/></HrContainer>
+              <HrContainer><Text>Horas </Text><Hr size="2px"/></HrContainer>
               <Row>              
                 <TimePicker backgroundColor="#979ac4" onPress={() => this.handleTimePress(0)}><Text>0</Text></TimePicker>
                 <TimePicker backgroundColor="#9e88ba" onPress={() => this.handleTimePress(1)}><Text>1</Text></TimePicker>
                 <TimePicker backgroundColor="#bd87c4" onPress={() => this.handleTimePress(2)}><Text>2</Text></TimePicker>
               </Row>
-              <HrContainer><Hr size="1px"/></HrContainer>
+              <HrContainer><Text>Minutos </Text><Hr size="1px"/></HrContainer>
               <Row>
                 <TimePicker backgroundColor="#979ac4" onPress={() => this.handleTimeMimPress(0)}><Text>00</Text></TimePicker>
                 <TimePicker backgroundColor="#a797c4" onPress={() => this.handleTimeMimPress(15)}><Text>15</Text></TimePicker>
@@ -237,7 +365,29 @@ export default class Main extends Component {
               <HrContainer><Hr size="3px"/></HrContainer>
             </View>
           }
-          <StatusCircle color="#d44848"/>
+          {this.state.user[0].institution === false &&
+            <VisaoNemTaoOucupada>
+              <ScrollViewOucupada>
+                {this.RenderAvaible(props.court)}
+              </ScrollViewOucupada>
+            </VisaoNemTaoOucupada>
+          }
+          {this.state.user[0].institution === true && 
+            <VisaoMuitoOucupada>
+              <ScrollViewOucupada>
+                {this.RenderAvaible(props.court)}
+              </ScrollViewOucupada>
+            </VisaoMuitoOucupada>
+          }
+          {this.state.user[0].institution === true && 
+            <VisaoMuitoFlexivel>
+              <Locate>
+                <LocateBtn onPress={() => this.locateCourt(dateOut, props.court.id)}><LocateText>Locate</LocateText></LocateBtn>
+                {this.state.errorMessage.length !== 0 && <ErrorMessage>{this.state.errorMessage}</ErrorMessage>}
+                {this.state.successMessage.length !== 0 && <SuccessMessage>{this.state.successMessage}</SuccessMessage>}
+              </Locate>
+            </VisaoMuitoFlexivel>
+          }
         </MidPart>
       </View>
     )
@@ -246,11 +396,11 @@ export default class Main extends Component {
   
 
   RenderCourts = () => {
-    
+
     return this.state.courts.map ((item, i) => {
       console.log(i);
       handleCourtPress = () => {
-        this.setState({crvisible: true, court: item})
+        this.setState({crvisible: true, court: item, errorMessage: "", successMessage: ""})
       }
       return (
       <TouchableOpacity key={item.id} onPress={handleCourtPress}>
@@ -258,7 +408,7 @@ export default class Main extends Component {
           <CourtImage source={{ uri: `http://192.168.15.30:3333/images/${item.images[0].path}` }} />
           <View>  
             <NameText>{item.name}</NameText>
-            <DescriptionText>Lorem Ipsum dolar sit amet</DescriptionText>
+            <DescriptionText>{item.description}</DescriptionText>
             <TouchableOpacity onPress={handleCourtPress}><Text>Locate</Text></TouchableOpacity>
           </View>
         </ImageView>
@@ -267,9 +417,52 @@ export default class Main extends Component {
     })
   };
 
+  RenderAvaible = (props) => {
+    
+    return this.state.reservs.map ((item, i) => {
+      //console.log(item);
+      var dateIn = item.timeIn;
+      var dateOut = item.timeOut;
+      var tmp = [];
+      var tmp2 = [];
+      var tmp3 = [];
+      //console.log(dateIn)
+      typeof(dateIn) == "string" ? (
+        tmp = dateIn.split("-"), 
+        //console.log(tmp),
+        tmp2 = tmp[2].split(":"),
+        tmp3 = tmp2[0].split("T"),
+        //console.log(tmp2),
+        dateIn = new Date(tmp[0], tmp[1], tmp3[0], tmp3[1], tmp2[1])
+      ) : dateIn.toISOString()
+      dateIn.toISOString()
+      typeof(dateOut) == "string" ? (
+        tmp = dateOut.split("-"), 
+        //console.log(tmp),
+        tmp2 = tmp[2].split(":"),
+        tmp3 = tmp2[0].split("T"),
+        //console.log(tmp2),
+        dateOut = new Date(tmp[0], tmp[1], tmp3[0], tmp3[1], tmp2[1])
+      ) : dateOut.toISOString()
+      dateOut.toISOString()
+      console.log("\n\n\n\n\n\n\nprops:\n\n\n\n\n\n\n", props)
+      if(props.id == item.court_id) {
+        return (
+        <VisaoOcupada key={item.id}>
+          <NRow>
+            <StatusCircle color="#d44848"/>
+            <TextoOucupado>Oucupada Dia {dateIn.getDate()}/{dateIn.getMonth()} das {dateIn.getHours()}:{dateIn.getMinutes()} as {dateOut.getHours()}:{dateOut.getMinutes()} por {item.institution.name}</TextoOucupado>
+          </NRow>
+        </VisaoOcupada>
+        )
+      } else { return null }
+    })
+  };
+
   render() {
       if (this.state.crvisible)
       {
+        
         return (
           <View>{this.RenderCR({court: this.state.court})}</View>
         )

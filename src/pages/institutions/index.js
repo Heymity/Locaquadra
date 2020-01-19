@@ -73,7 +73,7 @@ export default class Institutions extends Component {
         <InstitutionImage source={{ uri: `http://192.168.15.30:3333/images/${item.images[0].path}` }} />  
         <View>
           <NameText>{item.name}</NameText>
-          <DescriptionText>Lorem Ipsun dolar sit amet</DescriptionText>
+          <DescriptionText>{item.description}</DescriptionText>
         </View>
       </ImageView>
       )

@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Text, View, TouchableHighlight, Modal, TouchableOpacity, AsyncStorage } from 'react-native'
+import { Text, View, TouchableHighlight, Modal, TouchableOpacity, AsyncStorage, Image } from 'react-native'
 
 import PropTypes from 'prop-types';
 
@@ -36,6 +36,12 @@ import {
     DetailsModalSecondDivision,
     DetailsModalBackButton,
     DetailsModalProfileTitle,
+    ProfileImage,
+    VisaoDoPoder,
+    Hr,
+    HrContainer,
+    ProfileText,
+    ProfileInput
   } from './styles';
 
   
@@ -59,7 +65,9 @@ export default class Profile extends Component {
         title: '',
         images: [],
       },
-      user: {}
+      user: {},
+      username: "",
+      description: ""
     }
   }
 
@@ -121,9 +129,31 @@ export default class Profile extends Component {
     }
   }
 
+  handleProfileInputChange = (value) => {
+    this.setState({ description: value})
+  }
+
+  saveDes = async (desc, id) => {
+    if(this.state.description != "" && this.state.description != desc)
+    {
+      var path = '/institution/' + id;
+      console.log("\n\nEnviando dados...\n\n", path, desc, this.state.description);
+      try {
+        const response = await api.put(path, {
+          description: this.state.description,
+        })
+        console.log(response)
+      } catch(err)
+      {
+        console.log(err)
+        return err
+      }
+    }
+  }
+
   
   pickImage = async () => {
-    const options1 = { mediaTypes: ImagePicker.MediaTypeOptions.All, allowsEditing: true, aspect: [4, 3] }
+    const options1 = { mediaTypes: ImagePicker.MediaTypeOptions.All, allowsEditing: true, aspect: [6, 5] }
     const data1 = await ImagePicker.launchImageLibraryAsync(options1)
     const { profileData } = this.state;
     this.setState({ profileData: {
@@ -197,19 +227,50 @@ export default class Profile extends Component {
       return(err);
     }
   }
+
+  renderBody = () => {
+    console.log(this.state.user)
+    try{
+      if(this.state.user.data[0] != undefined)
+      {
+        return (
+          <VisaoDoPoder>
+            { this.state.user.data[0].institution === true &&
+              <View>
+                <ProfileImage source={{ uri: `http://192.168.15.30:3333/images/${this.state.user.data[3].path}` }}/>
+                <ProfileText>{this.state.user != {} && this.state.user.data[1].name}</ProfileText>
+                <ProfileInput onChangeText={this.handleProfileInputChange}>{this.state.user != {} && this.state.user.data[1].description}</ProfileInput>
+                <TouchableOpacity onPress={() => this.saveDes(this.state.user.data[1].description, this.state.user.data[1].id)}><Text>Salvar Descrição</Text></TouchableOpacity>
+                <HrContainer><Hr size="3px"></Hr></HrContainer>
+                <ProfileImage source={{ uri: `http://192.168.15.30:3333/images/${this.state.user.data[2].path}` }}/>
+                <ProfileText>{this.state.user != {} && this.state.user.data[0].username}</ProfileText>
+              </View>
+            }
+            { this.state.user.data[0].institution === false &&
+              <View>
+                <ProfileImage source={{ uri: `http://192.168.15.30:3333/images/${this.state.user.data[1].path}` }}/>
+                <ProfileText>{this.state.user != {} && this.state.user.data[0].username}</ProfileText>
+              </View>
+            }
+          </VisaoDoPoder>
+        )
+      }   
+    } catch(err)
+    {
+      console.log(err)
+    }
+  };
   
   render() {
     return (
       <Container>
         <NavBar>
-          <Text>
+          <Text onPress={this.handleCameraModalOpenClose}>
             LocaQuadra USP
           </Text>
         </NavBar>
         <Container>
-          <Text>
-            Body
-          </Text>
+          {this.renderBody()}
         </Container>
         <Footer>
           <Circle >
@@ -225,7 +286,6 @@ export default class Profile extends Component {
 
         {this.renderCameraModal()}
         {this.renderDataModal()}
-        <MaterialIcons name="person" size={32} color="#bfbfbf" onPress={this.handleCameraModalOpenClose}/>
       </Container>
     )
   }

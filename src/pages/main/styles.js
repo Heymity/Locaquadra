@@ -100,6 +100,7 @@ const MidPart = styled.View`
   backgroundColor: #FAF9F8;
   height: 100%;
   font-size: 12px;
+  padding-bottom: 50px;
 `;
 
 const TimePicker = styled.TouchableOpacity`
@@ -109,7 +110,8 @@ const TimePicker = styled.TouchableOpacity`
   margin-right: 5px;
   backgroundColor: ${props => props.backgroundColor};
   flex: 1;
-  padding: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
   justifyContent: center;
 `;
 
@@ -155,7 +157,7 @@ const StatusCircle = styled.View`
   justifyContent: center;
   alignItems: center;
   border: 2px solid #353535;
-  backgroundColor: ${props => props.color};;
+  backgroundColor: ${props => props.color};
 `;
 
 const NRow = styled.View`
@@ -174,7 +176,7 @@ const VisaoOcupada = styled.View`
 `;
 
 const Locate = styled.View`
-
+  margin-bottom: 10px;
 `;
 
 const ErrorMessage = styled.Text`
@@ -242,6 +244,161 @@ const VisaoNemTaoOucupada = styled.View`
   borderRadius: 12;
 `;
 
+const VisaoDeCalorMuitoFria = styled.View`
+  flexDirection: row
+`;
+
+const TextoDerretido = styled.Text`
+  textAlign: center;
+  backgroundColor: #d2271eaa;
+  fontSize: 13px;
+  padding-left: 5px;
+  padding-right: 5px;
+  width: 37px;
+`;
+
+const VisaoCentralCronica = styled.View`
+  justifyContent: center;
+  alignItems: center;
+`;
+
+const TextoCongelado = styled.Text`
+  textAlign: center;
+  backgroundColor: #281faaaa;
+  fontSize: 13px;
+  padding-left: 5px;
+  padding-right: 5px;
+  width: 37px;
+`;
+
+const ImagemCronica = styled.Image`
+  height: 110%;
+  width: 110%;
+  resizeMode: stretch;
+`;
+
+const DescricaoCronica = styled.Text`
+  font-size: 15px;
+  font-weight: 600;
+`;
+
+const VisaoCronica = styled.View`
+  backgroundColor: #e2e7eb;
+  border-radius: 10px;
+  padding: 10px;
+  /*height: 100px;*/
+  width: null;
+  /*flex: 1;*/
+  alignItems: center;
+  justifyContent: space-evenly;
+  margin-bottom: 10px;
+  margin-top: 5px;
+  flexDirection: row;
+`;
+
+const VisaoVistaCronica = styled.View`
+  backgroundColor: #cbd5dc;
+  height: 65px;
+  width: 65px;
+  justifyContent: center;
+  alignItems: center;
+  border-radius: 10px;
+  justifyContent: center;
+`;
+
+const VisaoCryogenicaDescritivelDerretida = styled.View`
+  justifyContent: center;
+  alignItems: center;
+`;
+
+const VisaoDeDataTemporalCronioca = styled.View`
+  flexDirection: row;
+`;
+
+const TextoTemporalHorario = styled.Text`
+  font-size: 17px;
+  font-weight: 600;
+`;
+
+const TextoTemporalData = styled.Text`
+  font-size: 17px;
+  font-weight: 600;
+`;
+
+const AdvancedButton = styled.TouchableOpacity`
+  position: absolute;
+  right: 10px;
+  top: 10px;
+`;
+
+const AdvancedText = styled.Text`
+  font-size: 12px;
+  font-weight: 600;
+`;
+
+const WindDirection = styled.Image`
+  transform: rotate(${props => props.rotation + 'deg'});
+  height: 65%;
+  width: 65%;
+`;
+
+const TextoChuvoso = styled.Text`
+  textAlign: center;
+  backgroundColor: #230aaa44;
+  fontSize: 13px;
+  padding-left: 5px;
+  padding-right: 5px;
+  width: 70px;
+`;
+
+const TextoVentania = styled.Text`
+  textAlign: center;
+  backgroundColor: #c0c0c077;
+  fontSize: 12px;
+  margin-top: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  width: 70px;
+  border-radius: 4px;
+`;
+
+const CourtReservImage = styled.Image`
+  height: 75px;
+  width: 90px;
+  resizeMode: stretch;
+  borderRadius: 20px;
+  position: relative;
+  padding: 10px;
+  margin-left: 5px;
+  margin-right: 10px;
+`;
+
+const VisaoImagemReservada = styled.View`
+  width: 100%;
+  /*margin-top: 5px;*/
+  margin-bottom: 5px;
+  padding-top: 5px;
+  padding-bottom: 10px;
+  flexDirection: row;
+  alignItems: flex-start;
+  backgroundColor: #d0d2d9;
+  border: 1px solid #d0d2d9;
+  borderRadius: 10px;
+`;
+
+const TextoDoNome = styled.Text`
+  font-weight: 600;
+  font-size: 16px;
+  padding-left: 5px;
+`;
+
+const DescriptionTexto = styled.Text`
+  font-weight: 400;
+  font-size: 13px;
+  margin-top: 2px;
+  padding-left: 7px;
+  width: 220px;
+`;
 export {
     Container,
     NavBar,
@@ -273,6 +430,27 @@ export {
     LocateText,
     SuccessMessage,
     VisaoNemTaoOucupada,
-    VisaoMuitoFlexivel
+    VisaoMuitoFlexivel,
+    VisaoDeCalorMuitoFria,
+    TextoDerretido,
+    TextoCongelado,
+    ImagemCronica,
+    DescricaoCronica,
+    VisaoCronica,
+    VisaoVistaCronica,
+    VisaoCryogenicaDescritivelDerretida,
+    VisaoDeDataTemporalCronioca,
+    TextoTemporalHorario,
+    TextoTemporalData,
+    DescriptionTexto,
+    TextoDoNome,
+    VisaoImagemReservada,
+    CourtReservImage,
+    VisaoCentralCronica,
+    AdvancedButton,
+    AdvancedText,
+    WindDirection,
+    TextoChuvoso,
+    TextoVentania
   };
   

@@ -38,14 +38,40 @@ import {
     LocateText,
     SuccessMessage,
     VisaoNemTaoOucupada,
-    VisaoMuitoFlexivel
+    VisaoMuitoFlexivel,
+    VisaoDeCalorMuitoFria,
+    TextoDerretido,
+    TextoCongelado,
+    ImagemCronica,
+    DescricaoCronica,
+    VisaoCronica,
+    VisaoVistaCronica,
+    VisaoCryogenicaDescritivelDerretida,
+    VisaoDeDataTemporalCronioca,
+    TextoTemporalHorario,
+    TextoTemporalData,
+    DescriptionTexto,
+    TextoDoNome,
+    VisaoImagemReservada,
+    CourtReservImage,
+    VisaoCentralCronica,
+    AdvancedButton,
+    AdvancedText,
+    WindDirection,
+    TextoChuvoso,
+    TextoVentania
   } from './styles';
 
 import api from '../../services/api';
 
+import forecastApi from '../../services/forecastApi';
+
 import DatePicker from 'react-native-datepicker'
 
 const today = new Date();
+
+let todayForecast = [];
+
 export default class Main extends Component {
 
   constructor() {
@@ -60,7 +86,8 @@ export default class Main extends Component {
       ant: 0,
       reservs: [],
       errorMessage: "",
-      successMessage: ""
+      successMessage: "",
+      advancedInfo: false
     }
    
   }
@@ -88,6 +115,18 @@ export default class Main extends Component {
       console.log(response.data)
       this.setState({ user: response.data })
       
+    } catch(err) {
+      return err
+    }
+    try {
+      const response = await forecastApi.get('/forecast?lat=-23.559188&lon=-46.718278&appid=9f31bf04e91415954bc4033b16ea862a&lang=pt_br&units=metric', {})
+      console.log(response.data.list[0])
+      for(var i = 0; i <= 39;i++)
+      {
+        console.log(response.data.list[i])
+        todayForecast.push(response.data.list[i])
+      }
+
     } catch(err) {
       return err
     }
@@ -270,127 +309,296 @@ export default class Main extends Component {
   };
 
    RenderCR = (props) => {
-    var today = new Date();
-    var minDate = new Date(today.getTime());
-    var maxDate = new Date(parseInt(minDate.getTime()) + 3768400000)
-    var dateIn = new Date();
-    var dateOut = new Date();
-    dateIn = this.state.date
-    var tmp = []
-    var tmp2 = []
-    typeof(dateIn) == "string" ? (
-      tmp = dateIn.split("-"), 
-      tmp2 = tmp[3].split(":"),
-      dateIn = new Date(tmp[0], (parseInt(tmp[1]) - 1), tmp[2], tmp2[0], tmp2[1])
-    ) : dateIn.toISOString()
-    dateOut = this.state.timeOut
-    console.log(dateOut)
-    typeof(dateOut) == "string" ? (
-      tmp2 = dateOut.split(":"),
-      dateOut = new Date(dateIn.getFullYear(), dateIn.getMonth(), dateIn.getDate(), tmp2[0], tmp2[1])
-    ) : dateOut.toISOString()
-   
-    console.log(today.getTime())
-    console.log(maxDate)
-    console.log(dateOut)
-    console.log(dateIn)
-    return (
-      <View>
-        <NavBar>
-          <GoBack onPress={this.handleBackPress}>
-            <Text>Go Back</Text>
-          </GoBack>
-          <View>
-            {this.state.user[0].institution === true && <View><Text>Court Reservation</Text></View>}
-            {this.state.user[0].institution === false && <View><Text>Court Status</Text></View>}
-            {this.state.user[0].admin === true && <Text>admin</Text>}
-          </View>
-          {this.state.user[0].institution === true && <UserType>institution</UserType>}
-        </NavBar>
-        <MidPart>
-          {/*<Text> {props.court.name} </Text>*/}
-          <ImageView>
-            <CourtImage source={{ uri: `http://192.168.15.30:3333/images/${props.court.images[0].path}` }} />
-            <View>  
-              <NameText>{props.court.name}</NameText>
-              <DescriptionText>{props.court.description}</DescriptionText>
-            </View>
-          </ImageView>
-          {this.state.user[0].institution === true && 
+    try {
+      var today = new Date();
+      var minDate = new Date(today.getTime());
+      var maxDate = new Date(parseInt(minDate.getTime()) + 3768400000)
+      var dateIn = new Date();
+      var dateOut = new Date();
+      dateIn = this.state.date
+      var tmp = []
+      var tmp2 = []
+      typeof(dateIn) == "string" ? (
+        tmp = dateIn.split("-"), 
+        tmp2 = tmp[3].split(":"),
+        dateIn = new Date(tmp[0], (parseInt(tmp[1]) - 1), tmp[2], tmp2[0], tmp2[1])
+      ) : dateIn.toISOString()
+      dateOut = this.state.timeOut
+      console.log(dateOut)
+      typeof(dateOut) == "string" ? (
+        tmp2 = dateOut.split(":"),
+        dateOut = new Date(dateIn.getFullYear(), dateIn.getMonth(), dateIn.getDate(), tmp2[0], tmp2[1])
+      ) : dateOut.toISOString()
+    
+      console.log(today.getTime())
+      console.log(maxDate)
+      console.log(dateOut)
+      console.log(dateIn)
+
+      var index = parseInt(Math.floor((((dateIn.getTime() - today.getTime()) + 10000) / 3600000) / 3))
+      console.log(index, dateIn.getTime(), (today.getTime() / 1000).toFixed(0), ((dateIn.getTime() - today.getTime()) + 100000))
+      if(index < 0) index = 0
+
+      var forecastDates = []
+     
+      if( index >= 1 && index <= 40)
+      {
+        var tmp = new Date(parseInt(todayForecast[index - 1].dt) * 1000)
+        console.log(tmp)
+        forecastDates.push(tmp)
+      } else { forecastDates.push(new Date()) }
+      if (index <= 39)
+      {
+        console.log(parseInt(todayForecast[index].dt) * 1000)
+        var tmp = new Date(parseInt(todayForecast[index].dt) * 1000)
+        forecastDates.push(tmp)
+      }
+      if( index <= 38 )
+      {
+        var tmp = new Date(parseInt(todayForecast[index + 1].dt) * 1000)
+        forecastDates.push(tmp)
+      }
+
+      let mm = [0,0,0]
+      if (index <= 39)
+      {
+        if( todayForecast[index].rain != undefined && index <= 39)
+        {
+          mm[1] = Object.values(todayForecast[index].rain)[0]
+          console.log(mm)
+        }
+      }
+
+      return (
+        <View>
+          <NavBar>
+            <GoBack onPress={this.handleBackPress}>
+              <Text>Go Back</Text>
+            </GoBack>
             <View>
-              <Row>
-                <DatePicker
-                  style={{ width: 250 }}
-                  date={this.state.date}
-                  mode="datetime"
-                  placeholder="select date"
-                  format="YYYY-MM-DD-HH:mm"
-                  minDate={minDate}
-                  maxDate={maxDate}
-                  confirmBtnText="Confirm"
-                  cancelBtnText="Cancel"
-                  customStyles={{
-                    dateIcon: {
-                      position: 'absolute',
-                      left: 0,
-                      top: 4,
-                      marginLeft: 0
-                    },
-                    dateInput: {
-                      marginLeft: 36
-                    }
-                    // ... You can check the source to find the other keys.
-                  }}
-                  onDateChange={this.handleDateChange}
-                />
-                <TimeDisplay>
-                  <TimeDisplayText>
-                    {this.state.timeOut}
-                  </TimeDisplayText>
-                </TimeDisplay>
-              </Row>
-              <HrContainer><Text>Horas </Text><Hr size="2px"/></HrContainer>
-              <Row>              
-                <TimePicker backgroundColor="#979ac4" onPress={() => this.handleTimePress(0)}><Text>0</Text></TimePicker>
-                <TimePicker backgroundColor="#9e88ba" onPress={() => this.handleTimePress(1)}><Text>1</Text></TimePicker>
-                <TimePicker backgroundColor="#bd87c4" onPress={() => this.handleTimePress(2)}><Text>2</Text></TimePicker>
-              </Row>
-              <HrContainer><Text>Minutos </Text><Hr size="1px"/></HrContainer>
-              <Row>
-                <TimePicker backgroundColor="#979ac4" onPress={() => this.handleTimeMimPress(0)}><Text>00</Text></TimePicker>
-                <TimePicker backgroundColor="#a797c4" onPress={() => this.handleTimeMimPress(15)}><Text>15</Text></TimePicker>
-                <TimePicker backgroundColor="#ad91c4" onPress={() => this.handleTimeMimPress(30)}><Text>30</Text></TimePicker>
-                <TimePicker backgroundColor="#bd87c4" onPress={() => this.handleTimeMimPress(45)}><Text>45</Text></TimePicker>
-              </Row>
-              <HrContainer><Hr size="3px"/></HrContainer>
+              {this.state.user[0].institution === true && <View><Text>Court Reservation</Text></View>}
+              {this.state.user[0].institution === false && <View><Text>Court Status</Text></View>}
+              {this.state.user[0].admin === true && <Text>admin</Text>}
             </View>
-          }
-          {this.state.user[0].institution === false &&
-            <VisaoNemTaoOucupada>
-              <ScrollViewOucupada>
-                {this.RenderAvaible(props.court)}
-              </ScrollViewOucupada>
-            </VisaoNemTaoOucupada>
-          }
-          {this.state.user[0].institution === true && 
-            <VisaoMuitoOucupada>
-              <ScrollViewOucupada>
-                {this.RenderAvaible(props.court)}
-              </ScrollViewOucupada>
-            </VisaoMuitoOucupada>
-          }
-          {this.state.user[0].institution === true && 
-            <VisaoMuitoFlexivel>
-              <Locate>
-                <LocateBtn onPress={() => this.locateCourt(dateOut, props.court.id)}><LocateText>Locate</LocateText></LocateBtn>
-                {this.state.errorMessage.length !== 0 && <ErrorMessage>{this.state.errorMessage}</ErrorMessage>}
-                {this.state.successMessage.length !== 0 && <SuccessMessage>{this.state.successMessage}</SuccessMessage>}
-              </Locate>
-            </VisaoMuitoFlexivel>
-          }
-        </MidPart>
-      </View>
-    )
+            {this.state.user[0].institution === true && <UserType>institution</UserType>}
+          </NavBar>
+          <MidPart> 
+            {/*<Text> {props.court.name} </Text>*/}
+            <VisaoImagemReservada>
+              <CourtReservImage source={{ uri: `http://192.168.15.30:3333/images/${props.court.images[0].path}` }} />
+              <View>  
+                <TextoDoNome>{props.court.name}</TextoDoNome>
+                <DescriptionTexto>{props.court.description}</DescriptionTexto>
+              </View>
+            </VisaoImagemReservada>
+            { !this.state.court.closed &&
+              <VisaoCronica>
+                <AdvancedButton onPress={() => {this.state.advancedInfo ? this.setState({ advancedInfo: false}) : this.setState({ advancedInfo: true }); console.log(this.state.advancedInfo)}}><FontAwesome name="retweet" size={16} color="#3e3e3e"></FontAwesome></AdvancedButton>
+                  { index >= 1 && index <= 40 && this.state.advancedInfo &&
+                    <VisaoCentralCronica>
+                      <VisaoVistaCronica>
+                        <WindDirection source={require('../../../assets/130864.png')} rotation={todayForecast[index - 1].wind.deg}></WindDirection>
+                      </VisaoVistaCronica>
+                      <TextoVentania>{ todayForecast[index - 1].wind.speed }km/h</TextoVentania>
+                      <TextoChuvoso>{ mm[0] }mm</TextoChuvoso>
+                      <VisaoDeDataTemporalCronioca>
+                        <TextoTemporalHorario>{parseInt(forecastDates[0].getHours()) < 10 ? '0' + forecastDates[0].getHours() : forecastDates[0].getHours()}:{parseInt(forecastDates[0].getMinutes()) < 10 ? '0' + forecastDates[0].getMinutes() : forecastDates[0].getMinutes() } - </TextoTemporalHorario>
+                        <TextoTemporalData>{parseInt(forecastDates[0].getDate()) < 10 ? '0' + forecastDates[0].getDate() : forecastDates[0].getDate()}/{forecastDates[0].getMonth()}</TextoTemporalData>
+                      </VisaoDeDataTemporalCronioca>
+                    </VisaoCentralCronica>
+                  }
+                  { index <= 39 && this.state.advancedInfo &&
+                    <VisaoCentralCronica>
+                      <VisaoVistaCronica>
+                        <WindDirection source={require('../../../assets/130864.png')} rotation={todayForecast[index].wind.deg}></WindDirection>
+                      </VisaoVistaCronica>
+                      <TextoVentania>{ todayForecast[index].wind.speed }km/h</TextoVentania>
+                      <TextoChuvoso>{ mm[1] }mm</TextoChuvoso>
+                      <VisaoDeDataTemporalCronioca>
+                        <TextoTemporalHorario>{parseInt(forecastDates[1].getHours()) < 10 ? '0' + forecastDates[1].getHours() : forecastDates[1].getHours()}:{parseInt(forecastDates[1].getMinutes()) < 10 ? '0' + forecastDates[1].getMinutes() : forecastDates[1].getMinutes() } - </TextoTemporalHorario>
+                        <TextoTemporalData>{parseInt(forecastDates[1].getDate()) < 10 ? '0' + forecastDates[1].getDate() : forecastDates[1].getDate()}/{forecastDates[1].getMonth()}</TextoTemporalData>
+                      </VisaoDeDataTemporalCronioca>
+                    </VisaoCentralCronica>
+                  }
+                  { index <= 38 && this.state.advancedInfo &&
+                    <VisaoCentralCronica>
+                      <VisaoVistaCronica>
+                        <WindDirection source={require('../../../assets/130864.png')} rotation={todayForecast[index + 1].wind.deg}></WindDirection>
+                      </VisaoVistaCronica>
+                      <TextoVentania>{ todayForecast[index + 1].wind.speed }km/h</TextoVentania>
+                      <TextoChuvoso>{ mm[2] }mm</TextoChuvoso>
+                      <VisaoDeDataTemporalCronioca>
+                        <TextoTemporalHorario>{parseInt(forecastDates[2].getHours()) < 10 ? '0' + forecastDates[2].getHours() : forecastDates[2].getHours()}:{parseInt(forecastDates[2].getMinutes()) < 10 ? '0' + forecastDates[2].getMinutes() : forecastDates[2].getMinutes() } - </TextoTemporalHorario>
+                        <TextoTemporalData>{parseInt(forecastDates[2].getDate()) < 10 ? '0' + forecastDates[2].getDate() : forecastDates[2].getDate()}/{forecastDates[2].getMonth()}</TextoTemporalData>
+                      </VisaoDeDataTemporalCronioca>
+                    </VisaoCentralCronica>
+                  }
+                  { index > 40 && this.state.advancedInfo &&
+                    <View>
+                      <Text>
+                      Nao foi possivel pegar a previsao do tempo para essa data. 
+                      Lembre-se que a previsao do tempo so funciona ate 5 dias
+                      </Text>
+                    </View>
+                  }
+                  { index >= 1 && index <= 40 && !this.state.advancedInfo &&
+                    <VisaoCentralCronica>
+                      <VisaoVistaCronica>
+                        <ImagemCronica source={{ uri: `http://openweathermap.org/img/wn/${todayForecast[index - 1].weather[0].icon}@2x.png `}}/>
+                      </VisaoVistaCronica>
+                      <VisaoCryogenicaDescritivelDerretida>
+                        <DescricaoCronica>{todayForecast[index - 1].weather[0].description}</DescricaoCronica>
+                        <VisaoDeCalorMuitoFria>
+                          <TextoCongelado>{parseFloat(todayForecast[index - 1].main.temp_min).toFixed(1)}</TextoCongelado>
+                          <TextoDerretido>{parseFloat(todayForecast[index - 1].main.temp_max).toFixed(1)}</TextoDerretido>
+                        </VisaoDeCalorMuitoFria>
+                        <VisaoDeDataTemporalCronioca>
+                          <TextoTemporalHorario>{parseInt(forecastDates[0].getHours()) < 10 ? '0' + forecastDates[0].getHours() : forecastDates[0].getHours()}:{parseInt(forecastDates[0].getMinutes()) < 10 ? '0' + forecastDates[0].getMinutes() : forecastDates[0].getMinutes() } - </TextoTemporalHorario>
+                          <TextoTemporalData>{parseInt(forecastDates[0].getDate()) < 10 ? '0' + forecastDates[0].getDate() : forecastDates[0].getDate()}/{forecastDates[0].getMonth()}</TextoTemporalData>
+                        </VisaoDeDataTemporalCronioca>
+                      </VisaoCryogenicaDescritivelDerretida>
+                    </VisaoCentralCronica>
+                  }
+                  { index <= 39 && !this.state.advancedInfo &&
+                    <VisaoCentralCronica>
+                      <VisaoVistaCronica>
+                        <ImagemCronica source={{ uri: `http://openweathermap.org/img/wn/${todayForecast[index].weather[0].icon}@2x.png `}}/>
+                      </VisaoVistaCronica>
+                      <VisaoCryogenicaDescritivelDerretida>
+                        <DescricaoCronica>{todayForecast[index].weather[0].description}</DescricaoCronica>
+                        <VisaoDeCalorMuitoFria>
+                          <TextoCongelado>{parseFloat(todayForecast[index].main.temp_min).toFixed(1)}</TextoCongelado>
+                          <TextoDerretido>{parseFloat(todayForecast[index].main.temp_max).toFixed(1)}</TextoDerretido>
+                        </VisaoDeCalorMuitoFria>
+                        <VisaoDeDataTemporalCronioca>
+                          <TextoTemporalHorario>{parseInt(forecastDates[1].getHours()) < 10 ? '0' + forecastDates[1].getHours() : forecastDates[1].getHours()}:{parseInt(forecastDates[1].getMinutes()) < 10 ? '0' + forecastDates[1].getMinutes() : forecastDates[1].getMinutes() } - </TextoTemporalHorario>
+                          <TextoTemporalData>{parseInt(forecastDates[1].getDate()) < 10 ? '0' + forecastDates[1].getDate() : forecastDates[1].getDate()}/{forecastDates[1].getMonth()}</TextoTemporalData>
+                        </VisaoDeDataTemporalCronioca>
+                      </VisaoCryogenicaDescritivelDerretida>
+                    </VisaoCentralCronica>
+                  }
+                  { index <= 38 && !this.state.advancedInfo &&
+                    <VisaoCentralCronica>
+                      <VisaoVistaCronica>
+                        <ImagemCronica source={{ uri: `http://openweathermap.org/img/wn/${todayForecast[index + 1].weather[0].icon}@2x.png `}}/>
+                      </VisaoVistaCronica>
+                      <VisaoCryogenicaDescritivelDerretida>
+                        <DescricaoCronica>{todayForecast[index + 1].weather[0].description}</DescricaoCronica>
+                        <VisaoDeCalorMuitoFria>
+                          <TextoCongelado>{parseFloat(todayForecast[index + 1].main.temp_min).toFixed(1)}</TextoCongelado>
+                          <TextoDerretido>{parseFloat(todayForecast[index + 1].main.temp_max).toFixed(1)}</TextoDerretido>
+                        </VisaoDeCalorMuitoFria>
+                        <VisaoDeDataTemporalCronioca>
+                          <TextoTemporalHorario>{parseInt(forecastDates[2].getHours()) < 10 ? '0' + forecastDates[2].getHours() : forecastDates[2].getHours()}:{parseInt(forecastDates[2].getMinutes()) < 10 ? '0' + forecastDates[2].getMinutes() : forecastDates[2].getMinutes() } - </TextoTemporalHorario>
+                          <TextoTemporalData>{parseInt(forecastDates[2].getDate()) < 10 ? '0' + forecastDates[2].getDate() : forecastDates[2].getDate()}/{forecastDates[2].getMonth()}</TextoTemporalData>
+                        </VisaoDeDataTemporalCronioca>
+                      </VisaoCryogenicaDescritivelDerretida>
+                    </VisaoCentralCronica>
+                  }
+                  { index > 40 && !this.state.advancedInfo &&
+                    <View>
+                      <Text>
+                      Nao foi possivel pegar a previsao do tempo para essa data. 
+                      Lembre-se que a previsao do tempo so funciona ate 5 dias
+                      </Text>
+                    </View>
+                  }
+                
+              </VisaoCronica>
+            }
+            {this.state.user[0].institution === true && 
+              <View>
+                <Row>
+                  <DatePicker
+                    style={{ width: 250 }}
+                    date={this.state.date}
+                    mode="datetime"
+                    placeholder="select date"
+                    format="YYYY-MM-DD-HH:mm"
+                    minDate={minDate}
+                    maxDate={maxDate}
+                    confirmBtnText="Confirm"
+                    cancelBtnText="Cancel"
+                    customStyles={{
+                      dateIcon: {
+                        position: 'absolute',
+                        left: 0,
+                        top: 4,
+                        marginLeft: 0
+                      },
+                      dateInput: {
+                        marginLeft: 36
+                      }
+                      // ... You can check the source to find the other keys.
+                    }}
+                    onDateChange={this.handleDateChange}
+                  />
+                  <TimeDisplay>
+                    <TimeDisplayText>
+                      {this.state.timeOut}
+                    </TimeDisplayText>
+                  </TimeDisplay>
+                </Row>
+                <HrContainer><Text>Horas </Text><Hr size="2px"/></HrContainer>
+                <Row>              
+                  <TimePicker backgroundColor="#979ac4" onPress={() => this.handleTimePress(0)}><Text>0</Text></TimePicker>
+                  <TimePicker backgroundColor="#9e88ba" onPress={() => this.handleTimePress(1)}><Text>1</Text></TimePicker>
+                  <TimePicker backgroundColor="#bd87c4" onPress={() => this.handleTimePress(2)}><Text>2</Text></TimePicker>
+                </Row>
+                <HrContainer><Text>Minutos </Text><Hr size="1px"/></HrContainer>
+                <Row>
+                  <TimePicker backgroundColor="#979ac4" onPress={() => this.handleTimeMimPress(0)}><Text>00</Text></TimePicker>
+                  <TimePicker backgroundColor="#a797c4" onPress={() => this.handleTimeMimPress(15)}><Text>15</Text></TimePicker>
+                  <TimePicker backgroundColor="#ad91c4" onPress={() => this.handleTimeMimPress(30)}><Text>30</Text></TimePicker>
+                  <TimePicker backgroundColor="#bd87c4" onPress={() => this.handleTimeMimPress(45)}><Text>45</Text></TimePicker>
+                </Row>
+                <HrContainer><Hr size="3px"/></HrContainer>
+              </View>
+            }
+            {this.state.user[0].institution === false || this.state.court.closed &&
+              <VisaoNemTaoOucupada>
+                <ScrollViewOucupada>
+                  {this.RenderAvaible(props.court)}
+                  { this.state.user[0].institution === true &&
+                    <Locate>
+                      <LocateBtn onPress={() => this.locateCourt(dateOut, props.court.id)}><LocateText>Locate</LocateText></LocateBtn>
+                      {this.state.errorMessage.length !== 0 && <ErrorMessage>{this.state.errorMessage}</ErrorMessage>}
+                      {this.state.successMessage.length !== 0 && <SuccessMessage>{this.state.successMessage}</SuccessMessage>}
+                    </Locate>
+                  }
+                </ScrollViewOucupada>
+              </VisaoNemTaoOucupada>
+            }
+            {this.state.user[0].institution === true && !this.state.court.closed && 
+              <VisaoMuitoOucupada>
+                <ScrollViewOucupada>
+                  {this.RenderAvaible(props.court)}
+                  <VisaoMuitoFlexivel>
+                    <Locate>
+                      <LocateBtn onPress={() => this.locateCourt(dateOut, props.court.id)}><LocateText>Locate</LocateText></LocateBtn>
+                      {this.state.errorMessage.length !== 0 && <ErrorMessage>{this.state.errorMessage}</ErrorMessage>}
+                      {this.state.successMessage.length !== 0 && <SuccessMessage>{this.state.successMessage}</SuccessMessage>}
+                    </Locate>
+                  </VisaoMuitoFlexivel>
+                </ScrollViewOucupada>
+              </VisaoMuitoOucupada>
+            }
+            {/*this.state.user[0].institution === true && 
+              <VisaoMuitoFlexivel>
+                <Locate>
+                  <LocateBtn onPress={() => this.locateCourt(dateOut, props.court.id)}><LocateText>Locate</LocateText></LocateBtn>
+                  {this.state.errorMessage.length !== 0 && <ErrorMessage>{this.state.errorMessage}</ErrorMessage>}
+                  {this.state.successMessage.length !== 0 && <SuccessMessage>{this.state.successMessage}</SuccessMessage>}
+                </Locate>
+              </VisaoMuitoFlexivel>
+            */}
+          </MidPart>
+        </View>
+      )
+    } catch (err)
+    {
+      console.log(err)
+    }
   }
   
   
@@ -402,18 +610,23 @@ export default class Main extends Component {
       handleCourtPress = () => {
         this.setState({crvisible: true, court: item, errorMessage: "", successMessage: ""})
       }
-      return (
-      <TouchableOpacity key={item.id} onPress={handleCourtPress}>
-        <ImageView>
-          <CourtImage source={{ uri: `http://192.168.15.30:3333/images/${item.images[0].path}` }} />
-          <View>  
-            <NameText>{item.name}</NameText>
-            <DescriptionText>{item.description}</DescriptionText>
-            <TouchableOpacity onPress={handleCourtPress}><Text>Locate</Text></TouchableOpacity>
-          </View>
-        </ImageView>
-      </TouchableOpacity>
-      )
+      try {
+        console.log(todayForecast[0].weather[0].icon)
+        return (
+        <TouchableOpacity key={item.id} onPress={handleCourtPress}>
+          <ImageView>
+            <CourtImage source={{ uri: `http://192.168.15.30:3333/images/${item.images[0].path}` }} />
+            <View>  
+              <NameText>{item.name}</NameText>
+              <DescriptionText>{item.description}</DescriptionText>
+              <TouchableOpacity onPress={handleCourtPress}><Text>Locate</Text></TouchableOpacity>
+            </View>
+          </ImageView>
+        </TouchableOpacity>
+        )
+      } catch (err) {
+
+      }
     })
   };
 
@@ -445,7 +658,7 @@ export default class Main extends Component {
         dateOut = new Date(tmp[0], tmp[1], tmp3[0], tmp3[1], tmp2[1])
       ) : dateOut.toISOString()
       dateOut.toISOString()
-      console.log("\n\n\n\n\n\n\nprops:\n\n\n\n\n\n\n", props)
+      //console.log("\n\n\n\n\n\n\nprops:\n\n\n\n\n\n\n", props)
       if(props.id == item.court_id) {
         return (
         <VisaoOcupada key={item.id}>
@@ -473,6 +686,7 @@ export default class Main extends Component {
               <Text>
                 LocaQuadra USP
               </Text>
+              
             </NavBar>
             {/* <Container>
               <Text>
@@ -481,7 +695,7 @@ export default class Main extends Component {
               
           
             </Container>
-            */}
+            */} 
             <ImageScrollView >
               {this.RenderCourts()}
               {/*<ImageView >
